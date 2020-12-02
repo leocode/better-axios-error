@@ -10,6 +10,8 @@ const b = async (axiosInstance) => {
   await a(axiosInstance);
 }
 
+const getStackTrace = (err) => err.stack;
+
 test('error enhancement', async (t) => {
   t.plan(2);
 
@@ -17,9 +19,7 @@ test('error enhancement', async (t) => {
   const enhancedAxios = enhanceAxios(Axios.create());
 
   // when
-  const enhancedErrorStack = await b(enhancedAxios).catch(err => {
-    return err.stack;
-  })
+  const enhancedErrorStack = await b(enhancedAxios).catch(getStackTrace)
 
   // then
   t.match(enhancedErrorStack, /at async a /, 'found line with inner function');
@@ -34,13 +34,9 @@ test('Axios instance scope', async (t) => {
   const enhancedAxios = enhanceAxios(Axios.create());
 
   // when
-  const enhancedErrorStack = await b(enhancedAxios).catch(err => {
-    return err.stack;
-  })
+  const enhancedErrorStack = await b(enhancedAxios).catch(getStackTrace)
 
-  const plainAxiosErrorStack = await b(plainAxios).catch(err => {
-    return err.stack;
-  })
+  const plainAxiosErrorStack = await b(plainAxios).catch(getStackTrace)
 
   // then
   t.match(enhancedErrorStack, /at async a /, 'found line with inner function');
