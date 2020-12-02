@@ -1,0 +1,13 @@
+{
+  "name": "better-axios-error",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "tape tests/**/*.js"
+  },
+  "devDependencies": {
+    "axios": "^0.21.0",
+    "tape": "^5.0.1"
+  }
+}
