@@ -38,7 +38,7 @@ test('Axios instance scope', async (t) => {
     return err.stack;
   })
 
-  const plainAxiosError = await b(plainAxios).catch(err => {
+  const plainAxiosErrorStack = await b(plainAxios).catch(err => {
     return err.stack;
   })
 
@@ -46,6 +46,6 @@ test('Axios instance scope', async (t) => {
   t.match(enhancedErrorStack, /at async a /, 'found line with inner function');
   t.match(enhancedErrorStack, /at async b /, 'found line with outer function');
 
-  t.doesNotMatch(plainAxiosError, /at async a /, 'not found line with inner function');
-  t.doesNotMatch(plainAxiosError, /at async b /, 'not found line with outer function');
+  t.doesNotMatch(plainAxiosErrorStack, /at async a /, 'not found line with inner function');
+  t.doesNotMatch(plainAxiosErrorStack, /at async b /, 'not found line with outer function');
 });
