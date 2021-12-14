@@ -1,13 +1,21 @@
 {
   "name": "better-axios-error",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "2.0.0",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "test": "tape tests/**/*.js"
+    "test": "yarn build && tape tests/**/*.spec.js",
+    "prepublish": "yarn build",
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "axios": "^0.24.0"
   },
   "devDependencies": {
-    "axios": "^0.21.0",
-    "tape": "^5.0.1"
+    "@types/node": "^16.11.12",
+    "axios": "^0.24.0",
+    "tape": "^5.0.1",
+    "typescript": "^4.5.4"
   }
 }

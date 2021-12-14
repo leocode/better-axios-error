@@ -41,11 +41,11 @@ So the stack trace of code that caused a problem is included, and we see that `h
 
 ## Installation
 
-`yarn add @leocode/better-axios-errors`
+`yarn add @leocode/better-axios-errors axios`
 
 or
 
-`npm install --save @leocode/better-axios-errors`
+`npm install --save @leocode/better-axios-errors axios`
 
 ## Usage
 
@@ -54,12 +54,17 @@ create a file, that will export enhanced one!
 
 ```js
 import axios from 'axios';
-import enhanceAxios from '@leocode/better-axios-errors';
+import { enhanceAxios } from '@leocode/better-axios-errors';
 
 export const enhancedAxios = enhanceAxios(axios.create());
 ```
 
 Now you can use `enhancedAxios` as normal axios instance.
 
-In case of TypeScript you may need to add `esModuleInterop: true` flag to `tsconfig.json`.
+Also, if you want to import enhanced axios instance, you can do it directly:
+
+```js
+import { axios } from '@leocode/better-axios-errors';
+```
+
 
