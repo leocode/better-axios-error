@@ -1,6 +1,6 @@
 const test = require('tape');
 const Axios = require('axios').default;
-const enhanceAxios = require('../index');
+const { enhanceAxios } = require('../build/index');
 
 const a = async (axiosInstance) => {
   await axiosInstance.get('https://google.com/i-dont-exist');
@@ -22,8 +22,8 @@ test('error enhancement', async (t) => {
   const enhancedErrorStack = await b(enhancedAxios).catch(getStackTrace)
 
   // then
-  t.match(enhancedErrorStack, /at async a /, 'found line with inner function');
-  t.match(enhancedErrorStack, /at async b /, 'found line with outer function');
+  t.match(enhancedErrorStack, /at (async )?a \(/, 'found line with inner function');
+  t.match(enhancedErrorStack, /at (async )?b \(/, 'found line with outer function');
 });
 
 test('Axios instance scope', async (t) => {
@@ -39,9 +39,9 @@ test('Axios instance scope', async (t) => {
   const plainAxiosErrorStack = await b(plainAxios).catch(getStackTrace)
 
   // then
-  t.match(enhancedErrorStack, /at async a /, 'found line with inner function');
-  t.match(enhancedErrorStack, /at async b /, 'found line with outer function');
+  t.match(enhancedErrorStack, /at (async )?a \(/, 'found line with inner function');
+  t.match(enhancedErrorStack, /at (async )?b \(/, 'found line with outer function');
 
-  t.doesNotMatch(plainAxiosErrorStack, /at async a /, 'not found line with inner function');
-  t.doesNotMatch(plainAxiosErrorStack, /at async b /, 'not found line with outer function');
+  t.doesNotMatch(plainAxiosErrorStack, /at (async )?a \(/, 'not found line with inner function');
+  t.doesNotMatch(plainAxiosErrorStack, /at (async )?b \(/, 'not found line with outer function');
 });
